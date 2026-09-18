@@ -1,1 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>わたしメイク｜経験を収入に変える</title>
 
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Noto Sans JP",sans-serif;
+  background:#fff8f7;
+  color:#333;
+}
+
+header{
+  padding:45px 22px 30px;
+  text-align:center;
+  background:linear-gradient(135deg,#f8dfe2,#f5eee8);
+}
+
+.logo{
+  font-size:13px;
+  letter-spacing:3px;
+  color:#a46d72;
+  margin-bottom:10px;
+}
+
+h1{
+  margin:0;
+  font-size:30px;
+  line-height:1.4;
+}
+
+header p{
+  line-height:1.8;
+  color:#666;
+  font-size:15px;
+}
+
+main{
+  max-width:650px;
+  margin:auto;
+  padding:25px 18px 60px;
+}
+
+.card{
+  background:white;
+  border-radius:20px;
+  padding:24px 20px;
+  margin-bottom:20px;
+  box-shadow:0 8px 30px rgba(0,0,0,.06);
+}
+
+.step{
+  color:#b7787d;
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+h2{
+  font-size:20px;
+  margin:8px 0 10px;
+}
+
+.help{
+  font-size:13px;
+  color:#777;
+  line-height:1.6;
+}
+
+textarea,
+input{
+  width:100%;
+  border:1px solid #e8dede;
+  background:#fffdfd;
+  border-radius:12px;
+  padding:14px;
+  font-size:16px;
+  margin-top:10px;
+  outline:none;
+}
+
+textarea{
+  min-height:105px;
+  resize:vertical;
+}
+
+textarea:focus,
+input:focus{
+  border-color:#c99095;
+}
+
+button{
+  width:100%;
+  border:none;
+  border-radius:14px;
+  padding:16px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.primary{
+  background:#a96f75;
+  color:white;
+  margin-top:10px;
+}
+
+.secondary{
+  background:#f5e7e8;
+  color:#8f5c61;
+  margin-top:12px;
+}
+
+#result{
+  display:none;
+}
+
+.resultBox{
+  background:#fff7f7;
+  border-left:4px solid #b7787d;
+  padding:18px;
+  border-radius:10px;
+  margin-top:15px;
+  line-height:1.8;
+}
+
+.idea{
+  background:white;
+  border:1px solid #f0dddd;
+  border-radius:14px;
+  padding:16px;
+  margin:12px 0;
+}
+
+.idea strong{
+  color:#9c6268;
+}
+
+.price{
+  display:inline-block;
+  background:#f5e7e8;
+  color:#8f5c61;
+  padding:4px 10px;
+  border-radius:20px;
+  margin-top:8px;
+  font-size:13px;
+}
+
+footer{
+  text-align:center;
+  font-size:12px;
+  color:#aaa;
+  padding:25px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">WATASHI MAKE</div>
+  <h1>あなたの経験、<br>そのまま眠らせない。</h1>
+  <p>
+    好きなこと・得意なこと・これまでの経験から<br>
+    「私にもできる」を見つけるミニ診断。
+  </p>
+</header>
+
+<main>
+
+<div class="card">
+  <div class="step">STEP 01</div>
+  <h2>今までやってきたことは？</h2>
+  <div class="help">
+    仕事だけじゃなくてOK。子育て、趣味、資格、人からよく頼まれることも立派な経験です。
+  </div>
+  <textarea id="experience" placeholder="例：美容の仕事を18年、接客、イベント企画、SNS発信、着付けなど"></textarea>
+</div>
+
+<div class="card">
+  <div class="step">STEP 02</div>
+  <h2>好き・得意なことは？</h2>
+  <textarea id="skill" placeholder="例：人と話す、美容、メイク、企画する、人をつなぐこと"></textarea>
+</div>
+
+<div class="card">
+  <div class="step">STEP 03</div>
+  <h2>どんな人の役に立ちたい？</h2>
+  <textarea id="target" placeholder="例：40代以上の女性、綺麗になりたい女性、これから何か始めたい人"></textarea>
+</div>
+
+<div class="card">
+  <div class="step">STEP 04</div>
+  <h2>月いくらプラスしたい？</h2>
+  <input id="income" type="number" placeholder="例：50000">
+  <div class="help">金額は円で入力してください。</div>
+</div>
+
+<button class="primary" onclick="makeIdeas()">
+  私の「収入のタネ」を見つける ✨
+</button>
+
+<div id="result" class="card" style="margin-top:25px;">
+  <div class="step">YOUR IDEAS</div>
+  <h2>あなたの中にあった「収入のタネ」🌱</h2>
+
+  <div id="summary" class="resultBox"></div>
+
+  <div id="ideas"></div>
+
+  <button class="secondary" onclick="resetForm()">
+    もう一度やってみる
+  </button>
+</div>
+
+</main>
+
+<footer>
+  WATASHI MAKE<br>
+  あなたの経験を、誰かの「ありがとう」へ。
+</footer>
+
+<script>
+function makeIdeas(){
+
+  const experience =
+    document.getElementById("experience").value.trim();
+
+  const skill =
+    document.getElementById("skill").value.trim();
+
+  const target =
+    document.getElementById("target").value.trim();
+
+  const income =
+    Number(document.getElementById("income").value);
+
+  if(!experience || !skill){
+    alert("まずは「やってきたこと」と「好き・得意」を教えてください♡");
+    return;
+  }
+
+  const goal = income || 50000;
+
+  document.getElementById("summary").innerHTML =
+    "あなたには、<strong>" +
+    escapeHtml(experience) +
+    "</strong>という経験と、<strong>" +
+    escapeHtml(skill) +
+    "</strong>という強みがあります。<br><br>" +
+    (target
+      ? "特に「" + escapeHtml(target) + "」に向けたサービスと相性がありそうです。"
+      : "誰のどんな悩みを解決するかを決めると、サービスに変えやすくなります。") +
+    "<br><br>月 +" +
+    goal.toLocaleString() +
+    "円を目標に、小さく始められる形を考えてみました。";
+
+  const ideas = [
+    {
+      title:"① 1対1のミニ相談",
+      text:"あなたの経験を必要としている人に、30〜60分の個別相談として提供。",
+      price:"目安：3,000〜5,000円 / 回"
+    },
+    {
+      title:"② 少人数レッスン・体験会",
+      text:"得意なことを2〜5人に教える小さなレッスン。オンライン開催にもできます。",
+      price:"目安：2,000〜5,000円 / 人"
+    },
+    {
+      title:"③ 経験をコンテンツにする",
+      text:"自分が知っていることをチェックリスト・PDF・動画・ミニ講座などにまとめて販売。",
+      price:"目安：500〜3,000円 / 商品"
+    }
+  ];
+
+  let html = "";
+
+  ideas.forEach(function(item){
+    html +=
+      '<div class="idea">' +
+      '<strong>' + item.title + '</strong><br>' +
+      item.text +
+      '<br><span class="price">' +
+      item.price +
+      '</span></div>';
+  });
+
+  document.getElementById("ideas").innerHTML = html;
+  document.getElementById("result").style.display = "block";
+
+  document.getElementById("result").scrollIntoView({
+    behavior:"smooth"
+  });
+}
+
+function resetForm(){
+  document.getElementById("experience").value="";
+  document.getElementById("skill").value="";
+  document.getElementById("target").value="";
+  document.getElementById("income").value="";
+  document.getElementById("result").style.display="none";
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+}
+
+function escapeHtml(text){
+  const div=document.createElement("div");
+  div.textContent=text;
+  return div.innerHTML;
+}
+</script>
+
+</body>
+</html>
