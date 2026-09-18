@@ -39,6 +39,131 @@ button{width:100%;border:0;border-radius:15px;padding:17px;font-size:16px;font-w
 .lessonBtn{display:block;text-decoration:none;background:#60b5aa;color:white;border-radius:14px;padding:16px;margin-top:15px;font-weight:bold}
 .note{font-size:11px;color:#888;line-height:1.7;margin-top:18px}
 footer{text-align:center;padding:25px;font-size:11px;color:#aaa}
+/* ===== WATASHI MAKE PREMIUM ===== */
+
+#result{
+position:relative;
+overflow:hidden;
+padding:0 18px 26px !important;
+border:1px solid rgba(190,158,83,.45);
+box-shadow:0 24px 60px rgba(70,55,30,.13);
+}
+
+#result:before{
+content:"";
+display:block;
+height:7px;
+margin:0 -18px 22px;
+background:linear-gradient(90deg,#c9ad68,#f7ebc4,#ad8841,#f7ebc4,#c9ad68);
+}
+
+#result .hero{
+margin:0 0 15px;
+padding:30px 14px 28px;
+border-radius:20px;
+background:radial-gradient(circle at 50% 0,#fffef9 0%,#faf5e8 48%,#e9f8f5 100%);
+border:1px solid #ead9ac;
+}
+
+#result .hero:before{
+content:"✦ PERSONAL BEAUTY RECIPE ✦";
+display:block;
+margin-bottom:14px;
+font-size:10px;
+letter-spacing:2.5px;
+color:#a18442;
+}
+
+#result .hero small{
+font-size:10px;
+letter-spacing:3px;
+color:#9a824e;
+}
+
+#result .hero h2{
+margin:10px 0 17px;
+font-size:29px;
+color:#302b25;
+}
+
+#result .badges{
+gap:10px;
+}
+
+#result .badge{
+padding:9px 17px;
+background:linear-gradient(145deg,#e6f8f5,#cceee9);
+border:1px solid rgba(80,165,155,.3);
+box-shadow:0 4px 12px rgba(60,130,120,.09);
+font-size:14px;
+font-weight:800;
+}
+
+#result .advice{
+margin:11px 0;
+padding:18px 16px;
+border:1px solid #eee6d7;
+border-radius:16px;
+background:linear-gradient(145deg,#ffffff,#fffdf8);
+line-height:1.85;
+}
+
+#result .advice strong{
+margin-bottom:7px;
+color:#8c7136;
+font-size:16px;
+}
+
+#result .palette{
+gap:12px;
+margin-top:14px;
+}
+
+#result .color{
+width:48px;
+height:48px;
+border:3px solid white;
+box-shadow:0 5px 14px rgba(0,0,0,.16);
+}
+
+#result .lesson{
+position:relative;
+margin-top:29px;
+padding:31px 19px 25px;
+border:1px solid #cdb06b;
+box-shadow:0 14px 32px rgba(120,95,40,.12);
+}
+
+#result .lesson:before{
+content:"✦";
+position:absolute;
+top:-15px;
+left:50%;
+transform:translateX(-50%);
+width:30px;
+height:30px;
+line-height:30px;
+border-radius:50%;
+background:white;
+border:1px solid #cdb06b;
+color:#a08039;
+}
+
+#result .lesson h3{
+font-size:24px;
+color:#393128;
+}
+
+#result .lessonBtn{
+padding:18px 12px;
+background:linear-gradient(135deg,#54b5aa,#72c9bf);
+box-shadow:0 9px 22px rgba(60,150,140,.24);
+}
+
+@media(max-width:390px){
+#result .hero h2{font-size:26px}
+#result .color{width:43px;height:43px}
+}
 </style>
 </head>
 
