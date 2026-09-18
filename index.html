@@ -4,160 +4,41 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>わたしメイク診断 by KAORI</title>
-
 <style>
 *{box-sizing:border-box}
-body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif;
-background:#f9f7f2;
-color:#333;
-}
-header{
-background:linear-gradient(145deg,#c9f0eb,#eefaf8);
-padding:48px 22px 40px;
-text-align:center;
-border-bottom:1px solid #d8c69b;
-}
-.brand{
-letter-spacing:4px;
-font-size:13px;
-color:#8c7950;
-font-weight:700;
-}
-h1{
-font-size:30px;
-margin:14px 0 10px;
-}
-header p{
-font-size:14px;
-line-height:1.8;
-color:#666;
-}
-main{
-max-width:650px;
-margin:auto;
-padding:22px 16px 60px;
-}
-.card{
-background:#fff;
-padding:23px 19px;
-border-radius:20px;
-margin-bottom:18px;
-box-shadow:0 8px 25px rgba(0,0,0,.05);
-}
-.step{
-font-size:11px;
-letter-spacing:2px;
-color:#a48b55;
-font-weight:bold;
-}
-h2{
-font-size:20px;
-margin:8px 0 15px;
-}
-.question{
-font-weight:700;
-margin:20px 0 10px;
-}
-.options{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:9px;
-}
-.option{
-border:1px solid #ddd;
-background:#fff;
-border-radius:12px;
-padding:13px 8px;
-text-align:center;
-font-size:14px;
-cursor:pointer;
-}
-.option.selected{
-background:#d9f3ef;
-border-color:#78bdb3;
-font-weight:bold;
-}
-button{
-width:100%;
-border:0;
-border-radius:15px;
-padding:17px;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-}
-.primary{
-background:#64b7ad;
-color:#fff;
-margin-top:8px;
-}
-.secondary{
-background:#f1ead9;
-color:#76613a;
-margin-top:12px;
-}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",sans-serif;background:#faf8f3;color:#333}
+header{background:linear-gradient(145deg,#c9f3ee,#effbf9);padding:50px 22px 42px;text-align:center;border-bottom:1px solid #cbb782}
+.brand{letter-spacing:5px;font-size:13px;color:#967d47;font-weight:700}
+h1{font-size:31px;margin:14px 0}
+header p{font-size:14px;line-height:1.9;color:#666}
+main{max-width:650px;margin:auto;padding:22px 16px 60px}
+.card{background:white;padding:23px 19px;border-radius:22px;margin-bottom:18px;box-shadow:0 8px 25px rgba(0,0,0,.05)}
+.step{font-size:11px;letter-spacing:2px;color:#a58b50;font-weight:bold}
+h2{font-size:21px;margin:8px 0 15px}
+.question{font-weight:700;margin:21px 0 10px;line-height:1.5}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.option{border:1px solid #ddd;background:white;border-radius:13px;padding:14px 8px;text-align:center;font-size:14px;cursor:pointer}
+.option.selected{background:#d8f3ef;border-color:#68b9ae;font-weight:bold}
+button{width:100%;border:0;border-radius:15px;padding:17px;font-size:16px;font-weight:bold;cursor:pointer}
+.primary{background:#60b5aa;color:white;margin-top:8px}
+.secondary{background:#f2ead8;color:#75603a;margin-top:12px}
 #result{display:none}
-.resultHero{
-text-align:center;
-padding:10px 0 20px;
-}
-.resultHero small{
-letter-spacing:2px;
-color:#9b8656;
-}
-.resultHero h2{
-font-size:27px;
-margin:10px 0 5px;
-}
-.badges{
-display:flex;
-justify-content:center;
-gap:8px;
-flex-wrap:wrap;
-margin-top:12px;
-}
-.badge{
-background:#e1f5f2;
-padding:7px 12px;
-border-radius:20px;
-font-size:13px;
-}
-.advice{
-border-top:1px solid #eee;
-padding:17px 0;
-line-height:1.8;
-}
-.advice strong{
-display:block;
-color:#8c7445;
-margin-bottom:4px;
-}
-.palette{
-display:flex;
-gap:8px;
-margin-top:10px;
-}
-.color{
-width:38px;
-height:38px;
-border-radius:50%;
-border:2px solid white;
-box-shadow:0 1px 6px #bbb;
-}
-.note{
-font-size:12px;
-color:#888;
-line-height:1.7;
-margin-top:16px;
-}
-footer{
-text-align:center;
-padding:25px;
-font-size:11px;
-color:#aaa;
-}
+.hero{text-align:center;padding:10px 0 20px}
+.hero small{letter-spacing:2px;color:#9a824e}
+.hero h2{font-size:27px;margin:10px 0}
+.badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.badge{background:#def4f1;border-radius:20px;padding:7px 12px;font-size:13px}
+.advice{border-top:1px solid #eee;padding:17px 0;line-height:1.8}
+.advice strong{display:block;color:#8b7445;margin-bottom:4px}
+.palette{display:flex;gap:8px;margin-top:10px}
+.color{width:38px;height:38px;border-radius:50%;border:2px solid white;box-shadow:0 1px 6px #bbb}
+.lesson{margin-top:20px;background:linear-gradient(145deg,#d7f4f0,#fffaf0);padding:24px 18px;border-radius:20px;text-align:center;border:1px solid #d9c794}
+.lesson .mini{font-size:11px;letter-spacing:2px;color:#957b43}
+.lesson h3{font-size:22px;margin:9px 0}
+.lesson p{font-size:14px;line-height:1.8;color:#555}
+.lessonBtn{display:block;text-decoration:none;background:#60b5aa;color:white;border-radius:14px;padding:16px;margin-top:15px;font-weight:bold}
+.note{font-size:11px;color:#888;line-height:1.7;margin-top:18px}
+footer{text-align:center;padding:25px;font-size:11px;color:#aaa}
 </style>
 </head>
 
@@ -167,9 +48,9 @@ color:#aaa;
 <div class="brand">WATASHI MAKE</div>
 <h1>わたしメイク診断</h1>
 <p>
-「若く見せる」より、<br>
-今の私をいちばん素敵に。<br>
-カラー × 顔印象から似合うメイクを見つけます。
+「若く見せる」より、今の私をいちばん素敵に。<br>
+パーソナルカラー × 顔印象8タイプから<br>
+あなたの魅力を生かすメイクを見つけます。
 </p>
 </header>
 
@@ -177,97 +58,112 @@ color:#aaa;
 
 <div class="card">
 <div class="step">STEP 01</div>
-<h2>パーソナルカラー診断</h2>
+<h2>パーソナルカラー</h2>
 
-<div class="question">① 肌になじみやすいアクセサリーは？</div>
+<div class="question">① なじみやすいアクセサリーは？</div>
 <div class="options">
 <div class="option colorQ" data-v="warm">ゴールド</div>
 <div class="option colorQ" data-v="cool">シルバー</div>
 </div>
 
-<div class="question">② 顔色がよく見えると感じる色は？</div>
+<div class="question">② 顔色がよく見えるのは？</div>
 <div class="options">
 <div class="option colorQ" data-v="warm">コーラル・ベージュ</div>
 <div class="option colorQ" data-v="cool">ローズ・ブルー</div>
 </div>
 
-<div class="question">③ 得意なのはどちら？</div>
+<div class="question">③ 得意だと感じるのは？</div>
 <div class="options">
 <div class="option colorQ" data-v="light">明るく軽やかな色</div>
-<div class="option colorQ" data-v="deep">濃くはっきりした色</div>
+<div class="option colorQ" data-v="deep">深くはっきりした色</div>
 </div>
 
-<div class="question">④ 褒められるリップは？</div>
+<div class="question">④ 褒められやすいリップは？</div>
 <div class="options">
 <div class="option colorQ" data-v="light">明るいピンク・コーラル</div>
-<div class="option colorQ" data-v="deep">ボルドー・深い赤</div>
+<div class="option colorQ" data-v="deep">深い赤・ボルドー</div>
 </div>
 </div>
 
 <div class="card">
 <div class="step">STEP 02</div>
-<h2>顔印象診断</h2>
+<h2>顔印象8タイプ診断</h2>
 
-<div class="question">① 顔の輪郭は？</div>
+<div class="question">① 顔の縦横バランスは？</div>
 <div class="options">
-<div class="option faceQ" data-v="soft">丸顔・卵型寄り</div>
-<div class="option faceQ" data-v="sharp">面長・縦長寄り</div>
+<div class="option faceQ" data-axis="age" data-v="child">丸顔・横幅を感じる</div>
+<div class="option faceQ" data-axis="age" data-v="adult">卵型・面長を感じる</div>
 </div>
 
-<div class="question">② 顔のパーツは？</div>
+<div class="question">② 顔の立体感は？</div>
 <div class="options">
-<div class="option faceQ" data-v="soft">丸みを感じる</div>
-<div class="option faceQ" data-v="sharp">直線を感じる</div>
+<div class="option faceQ" data-axis="age" data-v="child">平面的・やわらかい</div>
+<div class="option faceQ" data-axis="age" data-v="adult">立体的・大人っぽい</div>
 </div>
 
-<div class="question">③ パーツの存在感は？</div>
+<div class="question">③ 目の形は？</div>
 <div class="options">
-<div class="option faceQ" data-v="simple">小さめ・控えめ</div>
-<div class="option faceQ" data-v="gorgeous">大きめ・華やか</div>
+<div class="option faceQ" data-axis="line" data-v="curve">丸みがある</div>
+<div class="option faceQ" data-axis="line" data-v="straight">切れ長・直線的</div>
 </div>
 
-<div class="question">④ よく言われる印象は？</div>
+<div class="question">④ 鼻・輪郭の印象は？</div>
 <div class="options">
-<div class="option faceQ" data-v="simple">親しみやすい・爽やか</div>
-<div class="option faceQ" data-v="gorgeous">大人っぽい・華やか</div>
+<div class="option faceQ" data-axis="line" data-v="curve">丸み・曲線を感じる</div>
+<div class="option faceQ" data-axis="line" data-v="straight">骨感・直線を感じる</div>
+</div>
+
+<div class="question">⑤ 目・鼻・口の存在感は？</div>
+<div class="options">
+<div class="option faceQ" data-axis="power" data-v="soft">小さめ・控えめ</div>
+<div class="option faceQ" data-axis="power" data-v="strong">大きめ・印象的</div>
+</div>
+
+<div class="question">⑥ 第一印象で言われやすいのは？</div>
+<div class="options">
+<div class="option faceQ" data-axis="power" data-v="soft">優しい・爽やか</div>
+<div class="option faceQ" data-axis="power" data-v="strong">華やか・存在感がある</div>
 </div>
 </div>
 
 <div class="card">
 <div class="step">STEP 03</div>
-<h2>どんな私になりたい？</h2>
+<h2>なりたい印象</h2>
 <div class="options">
-<div class="option moodQ" data-v="natural">自然で上品</div>
-<div class="option moodQ" data-v="cute">やわらかく可愛い</div>
-<div class="option moodQ" data-v="elegant">華やかで女性らしい</div>
+<div class="option moodQ" data-v="natural">自然・上品</div>
+<div class="option moodQ" data-v="cute">やわらか・可愛い</div>
+<div class="option moodQ" data-v="elegant">華やか・女性らしい</div>
 <div class="option moodQ" data-v="cool">洗練・かっこいい</div>
 </div>
 </div>
 
 <div class="card">
 <div class="step">STEP 04</div>
-<h2>今いちばん気になるのは？</h2>
+<h2>今いちばん気になるところ</h2>
 <div class="options">
-<div class="option troubleQ" data-v="skin">くすみ・肌色</div>
-<div class="option troubleQ" data-v="eye">目元</div>
+<div class="option troubleQ" data-v="skin">くすみ・肌</div>
 <div class="option troubleQ" data-v="brow">眉</div>
-<div class="option troubleQ" data-v="lip">リップ</div>
+<div class="option troubleQ" data-v="eye">目元</div>
+<div class="option troubleQ" data-v="lip">口元</div>
 </div>
 </div>
 
-<button class="primary" onclick="diagnose()">
-私に似合うメイクを見る 💄
-</button>
+<button class="primary" onclick="diagnose()">私に似合うメイクを見る 💄</button>
 
 <div id="result" class="card" style="margin-top:22px">
 
-<div class="resultHero">
+<div class="hero">
 <small>YOUR BEAUTY RESULT</small>
-<h2 id="resultTitle"></h2>
+<h2>あなたの魅力タイプ</h2>
 <div class="badges">
-<span class="badge" id="colorBadge"></span>
+<span class="badge" id="seasonBadge"></span>
 <span class="badge" id="faceBadge"></span>
 </div>
+</div>
+
+<div class="advice">
+<strong>💎 あなたの魅力</strong>
+<div id="faceText"></div>
 </div>
 
 <div class="advice">
@@ -282,13 +178,13 @@ color:#aaa;
 </div>
 
 <div class="advice">
-<strong>👀 アイメイク</strong>
-<div id="eyeText"></div>
+<strong>〰️ 眉</strong>
+<div id="browText"></div>
 </div>
 
 <div class="advice">
-<strong>〰️ 眉</strong>
-<div id="browText"></div>
+<strong>👀 アイメイク</strong>
+<div id="eyeText"></div>
 </div>
 
 <div class="advice">
@@ -307,192 +203,235 @@ color:#aaa;
 </div>
 
 <div class="advice">
-<strong>KAORI'S POINT</strong>
+<strong>💄 KAORI'S POINT</strong>
 <div id="kaoriText"></div>
 </div>
 
-<p class="note">
-※この診断はセルフチェックを楽しむための簡易診断です。
-実際のパーソナルカラー・顔タイプ等の専門診断結果を確定するものではありません。
+<div class="lesson">
+<div class="mini">PERSONAL MAKE LESSON</div>
+<h3>診断だけで終わらせない。</h3>
+<p>
+あなたの顔で「似合う」を実践してみませんか？<br><br>
+診断結果を参考に、眉・アイメイク・チーク・リップまで。
+今のあなたを素敵に見せるメイクを一緒に見つけます。
 </p>
-
-<button class="secondary" onclick="location.reload()">
-もう一度診断する
-</button>
-
+<a class="lessonBtn" href="#" onclick="lesson();return false;">
+パーソナルメイクレッスンへ 💄
+</a>
 </div>
 
+<p class="note">
+※セルフチェックを楽しむための簡易診断です。
+専門的なパーソナルカラー診断・顔タイプ診断等の結果を確定するものではありません。
+</p>
+
+<button class="secondary" onclick="location.reload()">もう一度診断する</button>
+
+</div>
 </main>
 
 <footer>
 WATASHI MAKE by KAORI<br>
-Beauty is more fun at every age.
+今の私を、もっと楽しむ。
 </footer>
 
 <script>
-let mood="";
-let trouble="";
+let mood="",trouble="";
 
 document.querySelectorAll(".option").forEach(el=>{
-el.addEventListener("click",function(){
-
+el.onclick=function(){
 if(this.classList.contains("moodQ")){
 document.querySelectorAll(".moodQ").forEach(x=>x.classList.remove("selected"));
 mood=this.dataset.v;
-}
-else if(this.classList.contains("troubleQ")){
+}else if(this.classList.contains("troubleQ")){
 document.querySelectorAll(".troubleQ").forEach(x=>x.classList.remove("selected"));
 trouble=this.dataset.v;
+}else{
+this.parentElement.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));
 }
-else{
-let siblings=this.parentElement.querySelectorAll(".option");
-siblings.forEach(x=>x.classList.remove("selected"));
-}
-
 this.classList.add("selected");
-});
+};
 });
 
-function count(cls,val){
-return [...document.querySelectorAll("."+cls+".selected")]
-.filter(x=>x.dataset.v===val).length;
+function selectedCount(cls,v){
+return [...document.querySelectorAll("."+cls+".selected")].filter(x=>x.dataset.v===v).length;
 }
+
+const seasons={
+spring:{
+name:"イエベ春",
+color:"コーラル、ピーチ、アイボリー、明るいベージュ。明るさとツヤを味方に。",
+base:"軽やかなツヤ肌。厚く隠しすぎず、血色と明るさを生かして。",
+eye:"コーラルブラウンや明るいベージュ。ゴールド系の繊細なツヤも◎。",
+cheek:"ピーチ・コーラルをふんわり。",
+lip:"コーラルピンク、明るい朱赤、ピーチ系。",
+pal:["#F39B82","#F5C17D","#F5E4BE","#E97868"]
+},
+summer:{
+name:"ブルベ夏",
+color:"ローズ、ラベンダー、モーヴ、柔らかなブルー。透明感を生かして。",
+base:"ピンク〜ニュートラル寄りの上品なセミツヤ肌。",
+eye:"ローズブラウン、モーヴ、グレージュ。締め色も柔らかめに。",
+cheek:"青みピンクやローズを薄く。",
+lip:"ローズピンク、モーヴ、柔らかなベリー。",
+pal:["#D7A4B6","#C7B1D7","#ACC8D7","#E5B6C5"]
+},
+autumn:{
+name:"イエベ秋",
+color:"テラコッタ、キャメル、カーキ、深いベージュ。温かみと深さを味方に。",
+base:"ベージュ〜オークル系の上品なセミマット。部分的にツヤを。",
+eye:"キャメル、ブロンズ、カーキ、深みブラウン。",
+cheek:"テラコッタ、ベージュコーラル。",
+lip:"レンガ赤、テラコッタ、ブラウンレッド。",
+pal:["#B6694B","#B68A55","#79764D","#CE9870"]
+},
+winter:{
+name:"ブルベ冬",
+color:"ワイン、フューシャ、ブラック、クリアな寒色。コントラストを味方に。",
+base:"端正なツヤ肌。色ムラを整え、顔立ちのメリハリを生かして。",
+eye:"プラム、ワイン、グレー、シャープなブラウン。締め色を効果的に。",
+cheek:"ローズやプラムを少量。",
+lip:"青みレッド、ワイン、フューシャピンク。",
+pal:["#983056","#D63A73","#33343A","#684986"]
+}
+};
+
+const faces={
+cute:{
+name:"キュート",
+text:"やわらかく可愛らしい魅力。親しみやすさと曲線を生かすと魅力が引き立ちます。",
+brow:"短めで柔らかなアーチ眉。角をつけすぎないのがポイント。",
+hair:"丸みのあるボブ、ふんわりカールなど曲線を感じるスタイル。"
+},
+activeCute:{
+name:"アクティブキュート",
+text:"可愛らしさの中に華やかな存在感。遊び心のあるメイクも似合いやすいタイプ。",
+brow:"自然な太さを残した柔らかなアーチ。目元の存在感とバランスを。",
+hair:"カールや動きのあるスタイル。顔まわりにアクセントを入れても◎。"
+},
+fresh:{
+name:"フレッシュ",
+text:"爽やかで親しみやすい魅力。作り込みすぎない抜け感が似合います。",
+brow:"自然な平行眉〜緩やかなアーチ。ふんわり仕上げて。",
+hair:"ストレート、外ハネ、軽いレイヤーなどナチュラルなスタイル。"
+},
+coolCasual:{
+name:"クールカジュアル",
+text:"自然体なのに印象的。直線と抜け感を生かすと洗練された雰囲気に。",
+brow:"すっきりした平行眉。眉尻を少しシャープに。",
+hair:"ストレートや無造作なレイヤー。甘くしすぎないスタイルが◎。"
+},
+feminine:{
+name:"フェミニン",
+text:"女性らしく華やかな魅力。曲線と艶を生かしたメイクが映えます。",
+brow:"なだらかなアーチ眉。眉尻まで丁寧に仕上げて。",
+hair:"艶のあるゆる巻き、大きめカールなど女性らしい曲線を。"
+},
+softElegant:{
+name:"ソフトエレガント",
+text:"上品で穏やかな魅力。色やラインを強くしすぎない洗練メイクが得意。",
+brow:"細すぎない緩やかなアーチ。眉頭は柔らかく。",
+hair:"艶のあるストレートや緩やかなワンカール。上品なまとまりを。"
+},
+elegant:{
+name:"エレガント",
+text:"大人っぽく華やかな存在感。顔立ちの強さを消さず、上品に生かすのがポイント。",
+brow:"長さのあるソフトアーチ。骨格を生かして端正に。",
+hair:"艶と立体感のある大きめカールや顔まわりレイヤー。"
+},
+cool:{
+name:"クール",
+text:"凛とした大人の魅力。直線を生かしたシャープで洗練されたメイクが似合います。",
+brow:"長めの平行〜緩やかな角度眉。眉尻をすっきり。",
+hair:"ストレート、前下がり、シャープなレイヤーなど直線的なスタイル。"
+}
+};
 
 function diagnose(){
 
 if(document.querySelectorAll(".colorQ.selected").length<4 ||
-document.querySelectorAll(".faceQ.selected").length<4 ||
+document.querySelectorAll(".faceQ.selected").length<6 ||
 !mood || !trouble){
 alert("全部の質問に答えてね♡");
 return;
 }
 
-let warm=count("colorQ","warm");
-let cool=count("colorQ","cool");
-let light=count("colorQ","light");
-let deep=count("colorQ","deep");
+let warm=selectedCount("colorQ","warm");
+let cool=selectedCount("colorQ","cool");
+let light=selectedCount("colorQ","light");
+let deep=selectedCount("colorQ","deep");
 
 let season;
+if(warm>=cool) season=light>=deep?"spring":"autumn";
+else season=light>=deep?"summer":"winter";
 
-if(warm>=cool){
-season=light>=deep ? "spring" : "autumn";
-}else{
-season=light>=deep ? "summer" : "winter";
-}
+let ageChild=0,ageAdult=0,curve=0,straight=0,soft=0,strong=0;
 
-let soft=count("faceQ","soft");
-let sharp=count("faceQ","sharp");
-let simple=count("faceQ","simple");
-let gorgeous=count("faceQ","gorgeous");
+document.querySelectorAll(".faceQ.selected").forEach(x=>{
+if(x.dataset.v==="child")ageChild++;
+if(x.dataset.v==="adult")ageAdult++;
+if(x.dataset.v==="curve")curve++;
+if(x.dataset.v==="straight")straight++;
+if(x.dataset.v==="soft")soft++;
+if(x.dataset.v==="strong")strong++;
+});
 
+let isChild=ageChild>=ageAdult;
+let isCurve=curve>=straight;
+let isStrong=strong>soft;
 let face;
-if(soft>=sharp && simple>=gorgeous) face="softNatural";
-else if(soft>=sharp) face="feminine";
-else if(simple>=gorgeous) face="clean";
-else face="elegant";
 
-const seasons={
-spring:{
-name:"イエベ春",
-colors:"コーラル、ピーチ、アイボリー、明るいキャメルが得意。顔まわりには明るさとツヤを。",
-palette:["#F6A38B","#F7C98B","#F7E8C6","#E98572"],
-eye:"ベージュやコーラルブラウン。細かなゴールド系のツヤを足すと華やか。",
-cheek:"ピーチ・コーラルをふわっと。",
-lip:"コーラルピンク、朱赤、明るいベージュ系。",
-base:"黄み寄りの自然なツヤ肌。厚く隠しすぎず、明るさを生かして。"
-},
-summer:{
-name:"ブルベ夏",
-colors:"ローズ、ラベンダー、モーヴ、柔らかなブルー系が得意。涼しげな透明感を。",
-palette:["#D9A7B8","#C9B4D8","#AFC9D8","#E6B8C7"],
-eye:"ローズブラウン、モーヴ、グレージュ。強い黒より柔らかな締め色。",
-cheek:"青みピンクやローズを薄く。",
-lip:"ローズピンク、モーヴ、柔らかなベリー。",
-base:"ピンク〜ニュートラル寄りの透明感あるセミツヤ肌。"
-},
-autumn:{
-name:"イエベ秋",
-colors:"テラコッタ、キャメル、カーキ、深いベージュが得意。リッチな温かみを。",
-palette:["#B66B4D","#B98A56","#7C7950","#D09A73"],
-eye:"キャメル、ブロンズ、カーキ、深みブラウン。",
-cheek:"テラコッタ、ベージュコーラル。",
-lip:"レンガ赤、テラコッタ、ブラウンレッド。",
-base:"ベージュ〜オークル系の上品なセミマット。部分的なツヤで立体感を。"
-},
-winter:{
-name:"ブルベ冬",
-colors:"ワイン、フューシャ、ブラック、クリアな寒色が得意。コントラストを味方に。",
-palette:["#9D3159","#D93D76","#33343A","#684B8C"],
-eye:"グレー、プラム、ワイン、シャープなブラウン。締め色を効かせて。",
-cheek:"ローズやプラムを少量。",
-lip:"青みレッド、ワイン、フューシャピンク。",
-base:"ニュートラル〜ピンク寄りの端正なツヤ肌。メリハリを意識。"
+if(isChild){
+if(isCurve) face=isStrong?"activeCute":"cute";
+else face=isStrong?"coolCasual":"fresh";
+}else{
+if(isCurve) face=isStrong?"feminine":"softElegant";
+else face=isStrong?"elegant":"cool";
 }
+
+let s=seasons[season],f=faces[face];
+
+let moods={
+natural:"足し算しすぎず、肌のツヤと清潔感を主役にすると今っぽく仕上がります。",
+cute:"血色感と曲線を少し足すと、やわらかく親しみやすい印象になります。",
+elegant:"目元かリップのどちらかにポイントを置くと、上品な華やかさが出ます。",
+cool:"色数を絞り、眉と目元をすっきり仕上げると洗練された印象になります。"
 };
 
-const faces={
-softNatural:{
-name:"ソフトタイプ",
-brow:"少し丸みのある自然な眉。太すぎず、柔らかな色で。",
-hair:"柔らかなレイヤーや自然な丸み。作り込みすぎないスタイルが◎。"
-},
-feminine:{
-name:"フェミニンタイプ",
-brow:"なだらかなアーチ眉。眉尻まで丁寧に仕上げると女性らしさUP。",
-hair:"艶のあるゆる巻きや曲線を感じるスタイル。顔まわりに華やかさを。"
-},
-clean:{
-name:"クリーンタイプ",
-brow:"すっきりした平行〜緩やかなアーチ。眉尻をきれいに。",
-hair:"ストレートや軽いレイヤー。清潔感と抜け感を意識。"
-},
-elegant:{
-name:"エレガントタイプ",
-brow:"長さのあるソフトアーチ眉。骨格を生かして上品に。",
-hair:"艶と立体感のあるスタイル。大きめカールや顔まわりレイヤーも似合いやすい。"
-}
+let troubles={
+skin:"くすみが気になる日は、ファンデーションを厚くするより下地と血色で調整して。",
+brow:"昔の眉をそのまま再現せず、今の骨格と顔立ちに合わせて少しずつアップデート。",
+eye:"囲みすぎるより、まつ毛際と目尻を丁寧に。自然な立体感を意識して。",
+lip:"リップは顔全体の明るさを変えるスイッチ。似合う定番色を1本持っておくと便利。"
 };
 
-let s=seasons[season];
-let f=faces[face];
-
-let moodText={
-natural:"盛りすぎず、肌のツヤと清潔感を主役に。",
-cute:"曲線と血色感を少し足して、やわらかな表情に。",
-elegant:"目元かリップにポイントを置き、華やかさをひとさじ。",
-cool:"色数を絞り、眉と目元をすっきり仕上げて洗練された印象に。"
-}[mood];
-
-let troubleText={
-skin:"くすみが気になる日は、ファンデーションを厚くするより下地と血色カラーで調整。",
-eye:"目を大きく囲むより、まつ毛際と目尻を丁寧に。今っぽい立体感が出ます。",
-brow:"眉は顔の印象を大きく左右します。昔の形をそのまま描かず、少しずつ更新を。",
-lip:"リップは顔全体の明るさを変えるスイッチ。似合う色を1本決めておくと便利。"
-}[trouble];
-
-document.getElementById("resultTitle").textContent="今のあなたを、もっと素敵に。";
-document.getElementById("colorBadge").textContent=s.name;
+document.getElementById("seasonBadge").textContent=s.name;
 document.getElementById("faceBadge").textContent=f.name;
-document.getElementById("colorText").textContent=s.colors;
+document.getElementById("faceText").textContent=f.text;
+document.getElementById("colorText").textContent=s.color;
 document.getElementById("baseText").textContent=s.base;
-document.getElementById("eyeText").textContent=s.eye;
 document.getElementById("browText").textContent=f.brow;
+document.getElementById("eyeText").textContent=s.eye;
 document.getElementById("cheekText").textContent=s.cheek;
 document.getElementById("lipText").textContent=s.lip;
 document.getElementById("hairText").textContent=f.hair;
-document.getElementById("kaoriText").textContent=moodText+" "+troubleText;
+document.getElementById("kaoriText").textContent=moods[mood]+" "+troubles[trouble];
 
-let pal=document.getElementById("palette");
-pal.innerHTML="";
-s.palette.forEach(c=>{
+let palette=document.getElementById("palette");
+palette.innerHTML="";
+s.pal.forEach(c=>{
 let d=document.createElement("div");
 d.className="color";
 d.style.background=c;
-pal.appendChild(d);
+palette.appendChild(d);
 });
 
 document.getElementById("result").style.display="block";
 document.getElementById("result").scrollIntoView({behavior:"smooth"});
+}
+
+function lesson(){
+alert("パーソナルメイクレッスンのご予約は、プロフィールのLINEからお問い合わせください♡");
 }
 </script>
 
