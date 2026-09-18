@@ -280,6 +280,7 @@ box-shadow:0 9px 22px rgba(60,150,140,.24);
 <div class="hero">
 <small>YOUR BEAUTY RESULT</small>
 <h2>あなたの魅力タイプ</h2>
+  <div id="beautyTitle" class="beautyTitle"></div>
 <div class="badges">
 <span class="badge" id="seasonBadge"></span>
 <span class="badge" id="faceBadge"></span>
@@ -515,6 +516,7 @@ else face=isStrong?"elegant":"cool";
 }
 
 let s=seasons[season],f=faces[face];
+  document.getElementById("beautyTitle").textContent = s.name + " × " + f.name;
 
 let moods={
 natural:"足し算しすぎず、肌のツヤと清潔感を主役にすると今っぽく仕上がります。",
