@@ -204,9 +204,14 @@ footer strong{color:#967b42;letter-spacing:3px}
  <div class="gift">🎁</div>
  <div class="step">FREE BEAUTY RESULT</div>
  <h2>診断結果が完成しました♡</h2>
- <p style="line-height:1.9">あなた専用のメイクレシピができました💄<br>
- <strong>LINE登録で診断結果を無料で見られます。</strong></p>
- <a class="lineBtn" href="https://lin.ee/5CD8S3q" target="_blank" onclick="unlockResult()">LINE登録して無料で結果を見る 💚</a>
+ <p style="line-height:1.9">
+ あなた専用のメイクレシピができました💄<br>
+ <strong>LINE登録で診断結果を無料で見られます。</strong>
+ </p>
+ <a class="lineBtn" href="https://lin.ee/5CD8S3q" target="_blank" onclick="prepareLine()">LINE登録して無料で結果を見る 💚</a>
+ <p style="font-size:11px;color:#777;line-height:1.7;margin-top:14px">
+ LINE登録後、このページに戻ると<br>診断結果が表示されます♡
+ </p>
 </div>
 
 <div id="result" class="card">
@@ -214,7 +219,10 @@ footer strong{color:#967b42;letter-spacing:3px}
   <small>YOUR BEAUTY RESULT</small>
   <h2>あなたの魅力タイプ</h2>
   <div id="beautyTitle" class="beautyTitle"></div>
-  <div class="badges"><span class="badge" id="seasonBadge"></span><span class="badge" id="faceBadge"></span></div>
+  <div class="badges">
+   <span class="badge" id="seasonBadge"></span>
+   <span class="badge" id="faceBadge"></span>
+  </div>
  </div>
 
  <div class="advice"><strong>💎 あなたの魅力</strong><div id="faceText"></div></div>
@@ -231,108 +239,321 @@ footer strong{color:#967b42;letter-spacing:3px}
  <div class="lesson">
   <div class="step">PERSONAL MAKE LESSON</div>
   <h3>診断だけで終わらせない。</h3>
-  <p>あなたの顔で「似合う」を実践してみませんか？<br><br>
-  眉・アイメイク・チーク・リップまで、今のあなたを素敵に見せるメイクを一緒に見つけます。</p>
+  <p>
+   あなたの顔で「似合う」を実践してみませんか？<br><br>
+   眉・アイメイク・チーク・リップまで、今のあなたを素敵に見せるメイクを一緒に見つけます。
+  </p>
   <a class="lessonBtn" href="https://lin.ee/5CD8S3q">パーソナルメイクレッスンへ 💄</a>
   <p style="font-size:11px">🌿 遠方の方にはオンラインレッスンも！</p>
  </div>
 
- <p class="note">※セルフチェックを楽しむための簡易診断です。専門的なパーソナルカラー診断・顔タイプ診断等の結果を確定するものではありません。</p>
- <button class="secondary" onclick="location.reload()">もう一度診断する</button>
+ <p class="note">
+ ※セルフチェックを楽しむための簡易診断です。専門的なパーソナルカラー診断・顔タイプ診断等の結果を確定するものではありません。
+ </p>
+
+ <button class="secondary" onclick="resetDiagnosis()">もう一度診断する</button>
 </div>
 
 </main>
 
-<footer><strong>WATASHI MAKE</strong><br>by KAORI<br>今の私を、もっと楽しむ。</footer>
+<footer>
+ <strong>WATASHI MAKE</strong><br>
+ by KAORI<br>
+ 今の私を、もっと楽しむ。
+</footer>
 
 <script>
-let mood="",trouble="";
+let mood="";
+let trouble="";
+let currentResult=null;
 
 document.querySelectorAll(".option").forEach(el=>{
  el.onclick=function(){
+
   if(this.classList.contains("moodQ")){
-   document.querySelectorAll(".moodQ").forEach(x=>x.classList.remove("selected"));mood=this.dataset.v;
+   document.querySelectorAll(".moodQ").forEach(x=>x.classList.remove("selected"));
+   mood=this.dataset.v;
+
   }else if(this.classList.contains("troubleQ")){
-   document.querySelectorAll(".troubleQ").forEach(x=>x.classList.remove("selected"));trouble=this.dataset.v;
+   document.querySelectorAll(".troubleQ").forEach(x=>x.classList.remove("selected"));
+   trouble=this.dataset.v;
+
   }else{
    this.parentElement.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));
   }
+
   this.classList.add("selected");
  };
 });
 
-function count(c,v){return [...document.querySelectorAll("."+c+".selected")].filter(x=>x.dataset.v===v).length}
+function count(c,v){
+ return [...document.querySelectorAll("."+c+".selected")]
+ .filter(x=>x.dataset.v===v).length;
+}
 
 const seasons={
- spring:{name:"イエベ春",color:"コーラル、ピーチ、アイボリー、明るいベージュ。明るさとツヤを味方に。",base:"軽やかなツヤ肌。厚く隠しすぎず、血色と明るさを生かして。",eye:"コーラルブラウンや明るいベージュ。ゴールドの繊細なツヤも◎。",cheek:"ピーチ・コーラルをふんわり。",lip:"コーラルピンク、明るい朱赤、ピーチ系。",pal:["#F39B82","#F5C17D","#F5E4BE","#E97868"]},
- summer:{name:"ブルベ夏",color:"ローズ、ラベンダー、モーヴ、柔らかなブルー。透明感を生かして。",base:"ピンク〜ニュートラル寄りの上品なセミツヤ肌。",eye:"ローズブラウン、モーヴ、グレージュ。締め色も柔らかめに。",cheek:"青みピンクやローズを薄く。",lip:"ローズピンク、モーヴ、柔らかなベリー。",pal:["#D7A4B6","#C7B1D7","#ACC8D7","#E5B6C5"]},
- autumn:{name:"イエベ秋",color:"テラコッタ、キャメル、カーキ、深いベージュ。温かみと深さを味方に。",base:"ベージュ〜オークル系の上品なセミマット。部分的にツヤを。",eye:"キャメル、ブロンズ、カーキ、深みブラウン。",cheek:"テラコッタ、ベージュコーラル。",lip:"レンガ赤、テラコッタ、ブラウンレッド。",pal:["#B6694B","#B68A55","#79764D","#CE9870"]},
- winter:{name:"ブルベ冬",color:"ワイン、フューシャ、ブラック、クリアな寒色。コントラストを味方に。",base:"端正なツヤ肌。色ムラを整え、顔立ちのメリハリを生かして。",eye:"プラム、ワイン、グレー、シャープなブラウン。",cheek:"ローズやプラムを少量。",lip:"青みレッド、ワイン、フューシャピンク。",pal:["#983056","#D63A73","#33343A","#684986"]}
+ spring:{
+  name:"イエベ春",
+  color:"コーラル、ピーチ、アイボリー、明るいベージュ。明るさとツヤを味方に。",
+  base:"軽やかなツヤ肌。厚く隠しすぎず、血色と明るさを生かして。",
+  eye:"コーラルブラウンや明るいベージュ。ゴールドの繊細なツヤも◎。",
+  cheek:"ピーチ・コーラルをふんわり。",
+  lip:"コーラルピンク、明るい朱赤、ピーチ系。",
+  pal:["#F39B82","#F5C17D","#F5E4BE","#E97868"]
+ },
+ summer:{
+  name:"ブルベ夏",
+  color:"ローズ、ラベンダー、モーヴ、柔らかなブルー。透明感を生かして。",
+  base:"ピンク〜ニュートラル寄りの上品なセミツヤ肌。",
+  eye:"ローズブラウン、モーヴ、グレージュ。締め色も柔らかめに。",
+  cheek:"青みピンクやローズを薄く。",
+  lip:"ローズピンク、モーヴ、柔らかなベリー。",
+  pal:["#D7A4B6","#C7B1D7","#ACC8D7","#E5B6C5"]
+ },
+ autumn:{
+  name:"イエベ秋",
+  color:"テラコッタ、キャメル、カーキ、深いベージュ。温かみと深さを味方に。",
+  base:"ベージュ〜オークル系の上品なセミマット。部分的にツヤを。",
+  eye:"キャメル、ブロンズ、カーキ、深みブラウン。",
+  cheek:"テラコッタ、ベージュコーラル。",
+  lip:"レンガ赤、テラコッタ、ブラウンレッド。",
+  pal:["#B6694B","#B68A55","#79764D","#CE9870"]
+ },
+ winter:{
+  name:"ブルベ冬",
+  color:"ワイン、フューシャ、ブラック、クリアな寒色。コントラストを味方に。",
+  base:"端正なツヤ肌。色ムラを整え、顔立ちのメリハリを生かして。",
+  eye:"プラム、ワイン、グレー、シャープなブラウン。",
+  cheek:"ローズやプラムを少量。",
+  lip:"青みレッド、ワイン、フューシャピンク。",
+  pal:["#983056","#D63A73","#33343A","#684986"]
+ }
 };
 
 const faces={
- cute:{name:"キュート",text:"やわらかく可愛らしい魅力。親しみやすさと曲線を生かすと魅力が引き立ちます。",brow:"短めで柔らかなアーチ眉。角をつけすぎないのがポイント。",hair:"丸みのあるボブ、ふんわりカールなど曲線を感じるスタイル。"},
- activeCute:{name:"アクティブキュート",text:"可愛らしさの中に華やかな存在感。遊び心のあるメイクも似合いやすいタイプ。",brow:"自然な太さを残した柔らかなアーチ。",hair:"カールや動きのあるスタイル。顔まわりにアクセントを。"},
- fresh:{name:"フレッシュ",text:"爽やかで親しみやすい魅力。作り込みすぎない抜け感が似合います。",brow:"自然な平行眉〜緩やかなアーチ。",hair:"ストレート、外ハネ、軽いレイヤーなどナチュラルに。"},
- coolCasual:{name:"クールカジュアル",text:"自然体なのに印象的。直線と抜け感を生かすと洗練された雰囲気に。",brow:"すっきりした平行眉。眉尻を少しシャープに。",hair:"ストレートや無造作なレイヤー。"},
- feminine:{name:"フェミニン",text:"女性らしく華やかな魅力。曲線と艶を生かしたメイクが映えます。",brow:"なだらかなアーチ眉。眉尻まで丁寧に。",hair:"艶のあるゆる巻き、大きめカール。"},
- softElegant:{name:"ソフトエレガント",text:"上品で穏やかな魅力。色やラインを強くしすぎない洗練メイクが得意。",brow:"細すぎない緩やかなアーチ。",hair:"艶のあるストレートや緩やかなワンカール。"},
- elegant:{name:"エレガント",text:"大人っぽく華やかな存在感。顔立ちの強さを上品に生かすのがポイント。",brow:"長さのあるソフトアーチ。",hair:"艶と立体感のある大きめカールや顔まわりレイヤー。"},
- cool:{name:"クール",text:"凛とした大人の魅力。直線を生かした洗練メイクが似合います。",brow:"長めの平行〜緩やかな角度眉。",hair:"ストレート、前下がり、シャープなレイヤー。"}
+ cute:{
+  name:"キュート",
+  text:"やわらかく可愛らしい魅力。親しみやすさと曲線を生かすと魅力が引き立ちます。",
+  brow:"短めで柔らかなアーチ眉。角をつけすぎないのがポイント。",
+  hair:"丸みのあるボブ、ふんわりカールなど曲線を感じるスタイル。"
+ },
+ activeCute:{
+  name:"アクティブキュート",
+  text:"可愛らしさの中に華やかな存在感。遊び心のあるメイクも似合いやすいタイプ。",
+  brow:"自然な太さを残した柔らかなアーチ。",
+  hair:"カールや動きのあるスタイル。顔まわりにアクセントを。"
+ },
+ fresh:{
+  name:"フレッシュ",
+  text:"爽やかで親しみやすい魅力。作り込みすぎない抜け感が似合います。",
+  brow:"自然な平行眉〜緩やかなアーチ。",
+  hair:"ストレート、外ハネ、軽いレイヤーなどナチュラルに。"
+ },
+ coolCasual:{
+  name:"クールカジュアル",
+  text:"自然体なのに印象的。直線と抜け感を生かすと洗練された雰囲気に。",
+  brow:"すっきりした平行眉。眉尻を少しシャープに。",
+  hair:"ストレートや無造作なレイヤー。"
+ },
+ feminine:{
+  name:"フェミニン",
+  text:"女性らしく華やかな魅力。曲線と艶を生かしたメイクが映えます。",
+  brow:"なだらかなアーチ眉。眉尻まで丁寧に。",
+  hair:"艶のあるゆる巻き、大きめカール。"
+ },
+ softElegant:{
+  name:"ソフトエレガント",
+  text:"上品で穏やかな魅力。色やラインを強くしすぎない洗練メイクが得意。",
+  brow:"細すぎない緩やかなアーチ。",
+  hair:"艶のあるストレートや緩やかなワンカール。"
+ },
+ elegant:{
+  name:"エレガント",
+  text:"大人っぽく華やかな存在感。顔立ちの強さを上品に生かすのがポイント。",
+  brow:"長さのあるソフトアーチ。",
+  hair:"艶と立体感のある大きめカールや顔まわりレイヤー。"
+ },
+ cool:{
+  name:"クール",
+  text:"凛とした大人の魅力。直線を生かした洗練メイクが似合います。",
+  brow:"長めの平行〜緩やかな角度眉。",
+  hair:"ストレート、前下がり、シャープなレイヤー。"
+ }
+};
+
+const moods={
+ natural:"足し算しすぎず、肌のツヤと清潔感を主役にすると今っぽく仕上がります。",
+ cute:"血色感と曲線を少し足すと、やわらかく親しみやすい印象になります。",
+ elegant:"目元かリップのどちらかにポイントを置くと、上品な華やかさが出ます。",
+ cool:"色数を絞り、眉と目元をすっきり仕上げると洗練された印象になります。"
+};
+
+const troubles={
+ skin:"くすみが気になる日は、ファンデーションを厚くするより下地と血色で調整して。",
+ brow:"昔の眉をそのまま再現せず、今の骨格と顔立ちに合わせてアップデート。",
+ eye:"囲みすぎるより、まつ毛際と目尻を丁寧に。自然な立体感を意識して。",
+ lip:"リップは顔全体の明るさを変えるスイッチ。似合う定番色を1本持っておくと便利。"
 };
 
 function diagnose(){
- if(document.querySelectorAll(".colorQ.selected").length<4||document.querySelectorAll(".faceQ.selected").length<6||!mood||!trouble){
-  alert("全部の質問に答えてね♡");return;
+
+ if(
+  document.querySelectorAll(".colorQ.selected").length<4 ||
+  document.querySelectorAll(".faceQ.selected").length<6 ||
+  !mood ||
+  !trouble
+ ){
+  alert("全部の質問に答えてね♡");
+  return;
  }
 
  let season;
- if(count("colorQ","warm")>=count("colorQ","cool"))
-  season=count("colorQ","light")>=count("colorQ","deep")?"spring":"autumn";
- else season=count("colorQ","light")>=count("colorQ","deep")?"summer":"winter";
 
- let child=count("faceQ","child"),adult=count("faceQ","adult");
- let curve=count("faceQ","curve"),straight=count("faceQ","straight");
- let soft=count("faceQ","soft"),strong=count("faceQ","strong");
+ if(count("colorQ","warm")>=count("colorQ","cool")){
+  season=count("colorQ","light")>=count("colorQ","deep") ? "spring" : "autumn";
+ }else{
+  season=count("colorQ","light")>=count("colorQ","deep") ? "summer" : "winter";
+ }
+
+ let child=count("faceQ","child");
+ let adult=count("faceQ","adult");
+ let curve=count("faceQ","curve");
+ let straight=count("faceQ","straight");
+ let soft=count("faceQ","soft");
+ let strong=count("faceQ","strong");
+
  let face;
 
- if(child>=adult) face=curve>=straight?(strong>soft?"activeCute":"cute"):(strong>soft?"coolCasual":"fresh");
- else face=curve>=straight?(strong>soft?"feminine":"softElegant"):(strong>soft?"elegant":"cool");
+ if(child>=adult){
+  face=curve>=straight
+   ? (strong>soft ? "activeCute" : "cute")
+   : (strong>soft ? "coolCasual" : "fresh");
+ }else{
+  face=curve>=straight
+   ? (strong>soft ? "feminine" : "softElegant")
+   : (strong>soft ? "elegant" : "cool");
+ }
 
- let s=seasons[season],f=faces[face];
-
- const moods={
-  natural:"足し算しすぎず、肌のツヤと清潔感を主役にすると今っぽく仕上がります。",
-  cute:"血色感と曲線を少し足すと、やわらかく親しみやすい印象になります。",
-  elegant:"目元かリップのどちらかにポイントを置くと、上品な華やかさが出ます。",
-  cool:"色数を絞り、眉と目元をすっきり仕上げると洗練された印象になります。"
+ currentResult={
+  season:season,
+  face:face,
+  mood:mood,
+  trouble:trouble
  };
- const troubles={
-  skin:"くすみが気になる日は、ファンデーションを厚くするより下地と血色で調整して。",
-  brow:"昔の眉をそのまま再現せず、今の骨格と顔立ちに合わせてアップデート。",
-  eye:"囲みすぎるより、まつ毛際と目尻を丁寧に。自然な立体感を意識して。",
-  lip:"リップは顔全体の明るさを変えるスイッチ。似合う定番色を1本持っておくと便利。"
- };
 
- beautyTitle.textContent=s.name+" × "+f.name;
- seasonBadge.textContent=s.name;faceBadge.textContent=f.name;
- faceText.textContent=f.text;colorText.textContent=s.color;
- baseText.textContent=s.base;browText.textContent=f.brow;
- eyeText.textContent=s.eye;cheekText.textContent=s.cheek;
- lipText.textContent=s.lip;hairText.textContent=f.hair;
- kaoriText.textContent=moods[mood]+" "+troubles[trouble];
+ try{
+  localStorage.setItem("watashiMakeResult",JSON.stringify(currentResult));
+ }catch(e){}
 
- palette.innerHTML="";
- s.pal.forEach(c=>{let d=document.createElement("div");d.className="color";d.style.background=c;palette.appendChild(d)});
+ renderResult(currentResult,false);
 
- lineGate.style.display="block";
- lineGate.scrollIntoView({behavior:"smooth",block:"center"});
+ document.getElementById("result").style.display="none";
+ document.getElementById("lineGate").style.display="block";
+
+ document.getElementById("lineGate").scrollIntoView({
+  behavior:"smooth",
+  block:"center"
+ });
 }
 
-function unlockResult(){
- result.style.display="block";
- setTimeout(()=>result.scrollIntoView({behavior:"smooth",block:"start"}),300);
+function renderResult(data,show){
+
+ if(!data) return;
+
+ let s=seasons[data.season];
+ let f=faces[data.face];
+
+ if(!s || !f) return;
+
+ document.getElementById("beautyTitle").textContent=s.name+" × "+f.name;
+ document.getElementById("seasonBadge").textContent=s.name;
+ document.getElementById("faceBadge").textContent=f.name;
+
+ document.getElementById("faceText").textContent=f.text;
+ document.getElementById("colorText").textContent=s.color;
+ document.getElementById("baseText").textContent=s.base;
+ document.getElementById("browText").textContent=f.brow;
+ document.getElementById("eyeText").textContent=s.eye;
+ document.getElementById("cheekText").textContent=s.cheek;
+ document.getElementById("lipText").textContent=s.lip;
+ document.getElementById("hairText").textContent=f.hair;
+
+ document.getElementById("kaoriText").textContent=
+  moods[data.mood]+" "+troubles[data.trouble];
+
+ let palette=document.getElementById("palette");
+ palette.innerHTML="";
+
+ s.pal.forEach(c=>{
+  let d=document.createElement("div");
+  d.className="color";
+  d.style.background=c;
+  palette.appendChild(d);
+ });
+
+ if(show){
+  document.getElementById("lineGate").style.display="none";
+  document.getElementById("result").style.display="block";
+ }
+}
+
+function prepareLine(){
+ try{
+  localStorage.setItem("watashiMakeUnlock","yes");
+ }catch(e){}
+}
+
+function showResultAfterLine(){
+
+ let unlock="";
+ let saved=null;
+
+ try{
+  unlock=localStorage.getItem("watashiMakeUnlock");
+  saved=JSON.parse(localStorage.getItem("watashiMakeResult"));
+ }catch(e){}
+
+ if(unlock==="yes" && saved){
+
+  currentResult=saved;
+  renderResult(saved,true);
+
+  setTimeout(()=>{
+   document.getElementById("result").scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+   });
+  },300);
+
+  try{
+   localStorage.removeItem("watashiMakeUnlock");
+  }catch(e){}
+ }
+}
+
+window.addEventListener("pageshow",function(){
+ showResultAfterLine();
+});
+
+document.addEventListener("visibilitychange",function(){
+ if(document.visibilityState==="visible"){
+  showResultAfterLine();
+ }
+});
+
+window.addEventListener("focus",function(){
+ showResultAfterLine();
+});
+
+function resetDiagnosis(){
+ try{
+  localStorage.removeItem("watashiMakeResult");
+  localStorage.removeItem("watashiMakeUnlock");
+ }catch(e){}
+
+ location.reload();
 }
 </script>
+
 </body>
 </html>
