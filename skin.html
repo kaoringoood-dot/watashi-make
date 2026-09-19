@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#faf8f3">
-
 <title>わたし肌チェック by KAORI</title>
 
 <style>
@@ -15,91 +14,97 @@
   --mint:#68b9ae;
   --mint2:#4c9e94;
   --ivory:#faf8f3;
-  --white:#ffffff;
-  --pink:#f6e8e5;
   --line:#e8e1d7;
 }
-
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
   margin:0;
   color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,
   "Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
   background:
-    radial-gradient(circle at top right,#f6ebe7 0,transparent 28%),
-    linear-gradient(180deg,#fffdf9 0%,#faf8f3 100%);
+  radial-gradient(circle at top right,#f6ebe7 0,transparent 28%),
+  linear-gradient(180deg,#fffdf9,#faf8f3);
 }
-
 .wrap{
   max-width:680px;
   margin:auto;
   padding:24px 18px 70px;
 }
-
 header{
   text-align:center;
   padding:30px 10px 22px;
 }
-
 .brand{
   color:var(--gold);
   font-size:12px;
   letter-spacing:4px;
-  font-weight:700;
+  font-weight:800;
 }
-
 h1{
   margin:10px 0 5px;
   font-size:30px;
-  letter-spacing:1px;
 }
-
 .subtitle{
   color:var(--sub);
   font-size:14px;
   line-height:1.8;
 }
-
 .card{
-  background:rgba(255,255,255,.94);
+  background:rgba(255,255,255,.96);
   border:1px solid var(--line);
   border-radius:24px;
   padding:22px;
   margin:16px 0;
   box-shadow:0 10px 30px rgba(80,60,40,.07);
 }
-
 .step{
   color:var(--gold);
   font-size:11px;
   font-weight:800;
   letter-spacing:2px;
 }
-
 h2{
   font-size:20px;
   margin:7px 0 8px;
 }
-
 .small{
   color:var(--sub);
   font-size:13px;
   line-height:1.7;
 }
 
+/* 撮影場所 */
+.areaGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:15px 0;
+}
+.areaBtn{
+  border:1px solid var(--line);
+  background:#faf8f4;
+  color:var(--ink);
+  border-radius:14px;
+  padding:12px 5px;
+  font-size:12px;
+  font-weight:700;
+}
+.areaBtn.active{
+  background:#e7f4f1;
+  border-color:var(--mint);
+  color:#347b73;
+}
+
+/* 写真 */
 .photoGrid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
-  margin-top:18px;
+  margin-top:16px;
 }
-
 .photoBox{
-  min-height:180px;
+  height:210px;
   background:#f4f1ec;
   border:1px dashed #cfc5b8;
   border-radius:18px;
@@ -109,176 +114,167 @@ h2{
   align-items:center;
   justify-content:center;
 }
-
 .photoBox img{
-  width:100%;
-  height:100%;
   position:absolute;
   inset:0;
+  width:100%;
+  height:100%;
   object-fit:cover;
 }
-
-.photoPlaceholder{
-  padding:18px 8px;
+.placeholder{
   text-align:center;
   color:#91887e;
   font-size:13px;
   line-height:1.6;
 }
-
 .label{
   position:absolute;
-  z-index:3;
+  z-index:5;
   top:9px;
   left:9px;
-  background:rgba(255,255,255,.9);
+  background:rgba(255,255,255,.92);
   padding:6px 9px;
   border-radius:20px;
   font-size:10px;
   font-weight:800;
-  letter-spacing:1px;
 }
-
-button,
-.fileLabel{
+.fileLabel,button,.lineBtn{
   width:100%;
   border:0;
   border-radius:999px;
   padding:15px 16px;
   font-size:15px;
-  font-weight:700;
-  cursor:pointer;
+  font-weight:800;
   display:block;
   text-align:center;
   text-decoration:none;
 }
-
 .primary{
   color:white;
   background:linear-gradient(135deg,var(--mint),var(--mint2));
-  box-shadow:0 7px 18px rgba(76,158,148,.25);
 }
-
 .secondary{
-  background:#fff;
+  background:white;
   color:var(--ink);
   border:1px solid var(--line);
 }
-
 .buttonStack{
   display:grid;
   gap:10px;
   margin-top:16px;
 }
+input[type=file]{display:none}
+.hidden{display:none!important}
 
-input[type=file]{
-  display:none;
-}
-
-/* comparison */
-
+/* 比較 */
 .compareWrap{
-  margin-top:18px;
   position:relative;
   width:100%;
   aspect-ratio:3/4;
+  margin-top:18px;
   overflow:hidden;
   border-radius:20px;
   background:#eeeae4;
+  isolation:isolate;
   touch-action:none;
 }
-
-.compareWrap img{
+.compareBefore{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   object-fit:cover;
-  user-select:none;
-  -webkit-user-drag:none;
+  z-index:1;
 }
-
 .afterLayer{
   position:absolute;
-  inset:0;
-  overflow:hidden;
+  top:0;
+  left:0;
   width:50%;
+  height:100%;
+  overflow:hidden;
+  z-index:2;
 }
-
-.afterLayer img{
+.compareToday{
+  position:absolute;
+  top:0;
+  left:0;
   width:100%;
   height:100%;
+  object-fit:cover;
   max-width:none;
 }
-
 .divider{
   position:absolute;
   top:0;
   bottom:0;
   left:50%;
   width:3px;
-  background:white;
+  background:#fff;
   transform:translateX(-50%);
-  box-shadow:0 0 7px rgba(0,0,0,.25);
-  pointer-events:none;
+  z-index:4;
+  box-shadow:0 0 8px rgba(0,0,0,.2);
 }
-
 .handle{
   position:absolute;
   left:50%;
   top:50%;
   transform:translate(-50%,-50%);
-  width:48px;
-  height:48px;
+  width:50px;
+  height:50px;
   border-radius:50%;
-  background:white;
+  background:#fff;
+  color:var(--mint2);
   display:flex;
   align-items:center;
   justify-content:center;
+  font-size:22px;
   font-weight:900;
-  color:var(--mint2);
+  z-index:5;
   box-shadow:0 4px 15px rgba(0,0,0,.18);
-  pointer-events:none;
 }
-
 .compareTag{
   position:absolute;
   top:12px;
-  z-index:5;
-  background:rgba(255,255,255,.88);
-  padding:6px 10px;
+  z-index:6;
+  background:rgba(255,255,255,.9);
+  padding:7px 11px;
   border-radius:30px;
   font-size:10px;
   font-weight:800;
 }
-
-.tagBefore{left:12px;}
-.tagToday{right:12px;}
-
+.tagBefore{left:12px}
+.tagToday{right:12px}
 .range{
   width:100%;
-  accent-color:var(--mint2);
   margin-top:16px;
+  accent-color:var(--mint2);
+}
+.hint{
+  text-align:center;
+  color:var(--sub);
+  font-size:11px;
+  margin-top:8px;
 }
 
-/* skin notes */
-
+/* 肌メモ */
+.dateLine{
+  background:#faf7f1;
+  border-radius:14px;
+  padding:12px 14px;
+  margin-top:12px;
+  font-size:13px;
+}
 .checks{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:9px;
   margin-top:15px;
 }
-
-.check{
-  position:relative;
-}
-
 .check input{
   position:absolute;
   opacity:0;
 }
-
 .check label{
   display:block;
   padding:12px 10px;
@@ -287,37 +283,22 @@ input[type=file]{
   border:1px solid var(--line);
   border-radius:14px;
   font-size:13px;
-  transition:.2s;
 }
-
 .check input:checked + label{
   background:#e7f4f1;
   border-color:var(--mint);
   color:#347b73;
-  font-weight:700;
+  font-weight:800;
 }
-
 textarea{
   width:100%;
   min-height:100px;
-  resize:vertical;
   border:1px solid var(--line);
   border-radius:15px;
   padding:14px;
   margin-top:12px;
   font:inherit;
-  color:var(--ink);
-  background:#fff;
 }
-
-.dateLine{
-  background:#faf7f1;
-  border-radius:14px;
-  padding:12px 14px;
-  margin-top:12px;
-  font-size:13px;
-}
-
 .privacy{
   display:flex;
   gap:10px;
@@ -329,54 +310,27 @@ textarea{
   line-height:1.7;
   color:#526a66;
 }
-
 .kaori{
   text-align:center;
-  background:
-    linear-gradient(145deg,#fff,#f7eee9);
+  background:linear-gradient(145deg,#fff,#f7eee9);
 }
-
 .kaoriTitle{
   color:var(--gold);
   letter-spacing:2px;
   font-size:12px;
   font-weight:800;
 }
-
 .lineBtn{
-  display:block;
   margin-top:15px;
-  padding:16px;
-  border-radius:999px;
-  background:linear-gradient(135deg,var(--mint),var(--mint2));
   color:white;
-  font-weight:800;
-  text-decoration:none;
-  box-shadow:0 7px 18px rgba(76,158,148,.25);
+  background:linear-gradient(135deg,var(--mint),var(--mint2));
 }
-
 footer{
   text-align:center;
   color:#9b948c;
   font-size:10px;
-  line-height:1.7;
+  line-height:1.8;
   margin-top:25px;
-}
-
-.hidden{
-  display:none;
-}
-
-.zoomHint{
-  text-align:center;
-  font-size:11px;
-  color:var(--sub);
-  margin-top:9px;
-}
-
-@media(max-width:390px){
-  h1{font-size:27px;}
-  .card{padding:18px;}
 }
 </style>
 </head>
@@ -386,418 +340,311 @@ footer{
 <div class="wrap">
 
 <header>
-  <div class="brand">WATASHI SKIN</div>
-  <h1>わたし肌チェック</h1>
-  <div class="subtitle">
-    肌は、比べると変化が見える。<br>
-    今日の肌を、未来の自分のために残そう♡
-  </div>
+<div class="brand">WATASHI SKIN</div>
+<h1>わたし肌チェック</h1>
+<div class="subtitle">
+肌は、比べると変化が見える。<br>
+今日の肌を、未来の自分のために残そう♡
+</div>
 </header>
 
+<section class="card">
+
+<div class="step">STEP 01</div>
+<h2>どこをチェックする？ 🔍</h2>
+
+<p class="small">
+同じ場所を選んで撮影すると、前回との変化が比べやすくなります。
+</p>
+
+<div class="areaGrid">
+<button class="areaBtn active" data-area="顔全体">顔全体</button>
+<button class="areaBtn" data-area="右ほほ">右ほほ</button>
+<button class="areaBtn" data-area="左ほほ">左ほほ</button>
+<button class="areaBtn" data-area="おでこ">おでこ</button>
+<button class="areaBtn" data-area="目元">目元</button>
+</div>
+
+<p class="small">
+チェック中：
+<strong id="selectedArea">顔全体</strong>
+</p>
+
+</section>
 
 <section class="card">
 
-  <div class="step">STEP 01</div>
-  <h2>肌の写真を準備する 📸</h2>
+<div class="step">STEP 02</div>
+<h2>肌の写真を準備する 📸</h2>
 
-  <p class="small">
-    前回と今日の写真を選んでください。<br>
-    なるべく同じ場所・明るさ・角度で撮ると、
-    変化がわかりやすくなります。
-  </p>
+<p class="small">
+なるべく同じ場所・明るさ・角度で撮影すると、変化がわかりやすくなります。
+</p>
 
-  <div class="photoGrid">
+<div class="photoGrid">
 
-    <div class="photoBox">
-      <span class="label">BEFORE</span>
+<div class="photoBox">
+<span class="label">BEFORE</span>
+<div class="placeholder" id="beforePlaceholder">
+🖼️<br>前回の写真
+</div>
+<img id="beforePreview" class="hidden">
+</div>
 
-      <div class="photoPlaceholder" id="beforePlaceholder">
-        🖼️<br>
-        前回の写真
-      </div>
+<div class="photoBox">
+<span class="label">TODAY</span>
+<div class="placeholder" id="todayPlaceholder">
+📸<br>今日の肌
+</div>
+<img id="todayPreview" class="hidden">
+</div>
 
-      <img id="beforePreview" class="hidden">
-    </div>
+</div>
 
+<div class="buttonStack">
 
-    <div class="photoBox">
-      <span class="label">TODAY</span>
+<label class="fileLabel secondary">
+🖼️ 前回の写真を選ぶ
+<input id="beforeInput" type="file" accept="image/*">
+</label>
 
-      <div class="photoPlaceholder" id="todayPlaceholder">
-        📸<br>
-        今日の肌
-      </div>
+<label class="fileLabel primary">
+📸 今日の肌を撮影・選択
+<input id="todayInput" type="file" accept="image/*" capture="user">
+</label>
 
-      <img id="todayPreview" class="hidden">
-    </div>
+</div>
 
-  </div>
-
-
-  <div class="buttonStack">
-
-    <label class="fileLabel secondary">
-      🖼️ 前回の写真を選ぶ
-      <input
-        id="beforeInput"
-        type="file"
-        accept="image/*">
-    </label>
-
-
-    <label class="fileLabel primary">
-      📸 今日の肌を撮影・選択
-      <input
-        id="todayInput"
-        type="file"
-        accept="image/*"
-        capture="user">
-    </label>
-
-  </div>
-
-
-  <div class="privacy">
-    🔐
-    <div>
-      <strong>写真について</strong><br>
-      このページでは、選んだ写真をサーバーへ
-      自動送信する機能は使用していません。
-      写真はこの画面上で比較するために使用します。
-    </div>
-  </div>
+<div class="privacy">
+🔐
+<div>
+<strong>写真について</strong><br>
+選んだ写真をサーバーへ自動送信する機能は使用していません。
+この画面上で比較するために使用します。
+</div>
+</div>
 
 </section>
-
-
-
-<section class="card" id="compareCard">
-
-  <div class="step">STEP 02</div>
-  <h2>Before / Todayを比べる ✨</h2>
-
-  <p class="small">
-    2枚の写真を入れたら、
-    バーを左右に動かして比べてみてください。
-  </p>
-
-
-  <div class="compareWrap" id="compareWrap">
-
-    <img id="compareBefore">
-
-    <div class="afterLayer" id="afterLayer">
-      <img id="compareToday">
-    </div>
-
-    <span class="compareTag tagBefore">
-      BEFORE
-    </span>
-
-    <span class="compareTag tagToday">
-      TODAY
-    </span>
-
-    <div class="divider" id="divider"></div>
-
-    <div class="handle" id="handle">
-      ↔
-    </div>
-
-  </div>
-
-
-  <input
-    type="range"
-    class="range"
-    id="compareRange"
-    min="0"
-    max="100"
-    value="50">
-
-  <div class="zoomHint">
-    👆 バーを動かして肌の変化をチェック
-  </div>
-
-</section>
-
-
 
 <section class="card">
 
-  <div class="step">STEP 03</div>
-  <h2>今日の肌メモ 📝</h2>
+<div class="step">STEP 03</div>
+<h2>Before / Todayを比べる ✨</h2>
 
-  <p class="small">
-    今日気になるところを選んでおくと、
-    次回との比較がしやすくなります。
-  </p>
+<p class="small">
+バーを左右に動かして、肌の変化を見てみましょう。
+</p>
 
+<div class="compareWrap" id="compareWrap">
 
-  <div class="dateLine">
-    📅 撮影日：
-    <strong id="todayDate"></strong>
-  </div>
+<img id="compareBefore" class="compareBefore">
 
+<div class="afterLayer" id="afterLayer">
+<img id="compareToday" class="compareToday">
+</div>
 
-  <div class="checks">
+<span class="compareTag tagBefore">BEFORE</span>
+<span class="compareTag tagToday">TODAY</span>
 
-    <div class="check">
-      <input type="checkbox" id="pores">
-      <label for="pores">毛穴</label>
-    </div>
+<div class="divider" id="divider"></div>
+<div class="handle" id="handle">↔</div>
 
-    <div class="check">
-      <input type="checkbox" id="dry">
-      <label for="dry">乾燥</label>
-    </div>
+</div>
 
-    <div class="check">
-      <input type="checkbox" id="dull">
-      <label for="dull">くすみ</label>
-    </div>
+<input
+type="range"
+class="range"
+id="compareRange"
+min="0"
+max="100"
+value="50">
 
-    <div class="check">
-      <input type="checkbox" id="red">
-      <label for="red">赤み</label>
-    </div>
-
-    <div class="check">
-      <input type="checkbox" id="spots">
-      <label for="spots">シミ</label>
-    </div>
-
-    <div class="check">
-      <input type="checkbox" id="glow">
-      <label for="glow">ツヤ ✨</label>
-    </div>
-
-  </div>
-
-
-  <textarea
-    id="skinMemo"
-    placeholder="例：今日は頬の乾燥が少し気になる。エステ後はツヤが出た♡"></textarea>
-
-
-  <div class="buttonStack">
-
-    <button
-      type="button"
-      class="primary"
-      onclick="saveMemo()">
-      今日の記録を保存する
-    </button>
-
-  </div>
-
-  <p class="small" id="saveMessage"></p>
+<div class="hint">
+👆 バーを動かして肌の変化をチェック
+</div>
 
 </section>
 
+<section class="card">
 
+<div class="step">STEP 04</div>
+<h2>今日の肌メモ 📝</h2>
+
+<div class="dateLine">
+📅 撮影日：<strong id="todayDate"></strong><br>
+🔍 部位：<strong id="memoArea">顔全体</strong>
+</div>
+
+<div class="checks">
+
+<div class="check">
+<input type="checkbox" id="pores">
+<label for="pores">毛穴</label>
+</div>
+
+<div class="check">
+<input type="checkbox" id="dry">
+<label for="dry">乾燥</label>
+</div>
+
+<div class="check">
+<input type="checkbox" id="dull">
+<label for="dull">くすみ</label>
+</div>
+
+<div class="check">
+<input type="checkbox" id="red">
+<label for="red">赤み</label>
+</div>
+
+<div class="check">
+<input type="checkbox" id="spots">
+<label for="spots">シミ</label>
+</div>
+
+<div class="check">
+<input type="checkbox" id="glow">
+<label for="glow">ツヤ ✨</label>
+</div>
+
+</div>
+
+<textarea id="skinMemo"
+placeholder="例：今日は頬の乾燥が少し気になる。エステ後はツヤが出た♡"></textarea>
+
+<div class="buttonStack">
+<button class="primary" onclick="saveMemo()">
+今日の記録を保存する
+</button>
+</div>
+
+<p class="small" id="saveMessage"></p>
+
+</section>
 
 <section class="card kaori">
 
-  <div class="kaoriTitle">
-    KAORI'S POINT
-  </div>
+<div class="kaoriTitle">KAORI'S POINT</div>
 
-  <h2>
-    写真だけで決めつけない♡
-  </h2>
+<h2>写真だけで決めつけない♡</h2>
 
-  <p class="small">
-    肌は、照明・時間帯・体調・カメラの補正でも
-    見え方が変わります。<br><br>
+<p class="small">
+肌は照明・時間帯・体調・カメラ補正でも見え方が変わります。<br><br>
+写真は「変化を見るための記録」として使って、
+気になることは実際のお肌を見ながら一緒に考えていきましょう。
+</p>
 
-    写真は「変化を見るための記録」として使って、
-    気になることは実際のお肌を見ながら
-    一緒に考えていきましょう。
-  </p>
+<a
+class="lineBtn"
+href="https://lin.ee/5CD8S3q"
+target="_blank">
+KAORIに肌相談する 💚
+</a>
 
-
-  <a
-    class="lineBtn"
-    href="https://lin.ee/5CD8S3q"
-    target="_blank">
-    KAORIに肌相談する 💚
-  </a>
-
-  <p class="small">
-    LINEが開いたら<br>
-    「肌相談希望」と送ってください♡
-  </p>
+<p class="small">
+LINEが開いたら<br>
+「肌相談希望」と送ってください♡
+</p>
 
 </section>
 
-
 <footer>
-
-  わたし肌チェック by KAORI<br><br>
-
-  このツールは肌の変化を記録・比較するための
-  美容サポートツールです。<br>
-  医療上の診断を行うものではありません。
-
+わたし肌チェック by KAORI<br><br>
+このツールは肌の変化を記録・比較するための美容サポートツールです。<br>
+医療上の診断を行うものではありません。
 </footer>
 
 </div>
 
-
 <script>
 
-const beforeInput =
-document.getElementById("beforeInput");
+let selectedArea="顔全体";
 
-const todayInput =
-document.getElementById("todayInput");
+document.querySelectorAll(".areaBtn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".areaBtn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    selectedArea=btn.dataset.area;
+    document.getElementById("selectedArea").textContent=selectedArea;
+    document.getElementById("memoArea").textContent=selectedArea;
+  });
+});
 
-const beforePreview =
-document.getElementById("beforePreview");
+const beforeInput=document.getElementById("beforeInput");
+const todayInput=document.getElementById("todayInput");
 
-const todayPreview =
-document.getElementById("todayPreview");
-
-const compareBefore =
-document.getElementById("compareBefore");
-
-const compareToday =
-document.getElementById("compareToday");
-
-const beforePlaceholder =
-document.getElementById("beforePlaceholder");
-
-const todayPlaceholder =
-document.getElementById("todayPlaceholder");
-
-
-function loadPhoto(input,preview,compare,placeholder){
+function loadPhoto(input,previewId,compareId,placeholderId){
 
   const file=input.files[0];
-
   if(!file)return;
 
   const reader=new FileReader();
 
-  reader.onload=function(e){
+  reader.onload=e=>{
+    const src=e.target.result;
 
-    preview.src=e.target.result;
-    compare.src=e.target.result;
+    const preview=document.getElementById(previewId);
+    const compare=document.getElementById(compareId);
+
+    preview.src=src;
+    compare.src=src;
 
     preview.classList.remove("hidden");
-    placeholder.classList.add("hidden");
-
+    document.getElementById(placeholderId).classList.add("hidden");
   };
 
   reader.readAsDataURL(file);
 }
 
-
-beforeInput.addEventListener("change",function(){
-
+beforeInput.addEventListener("change",()=>{
   loadPhoto(
     beforeInput,
-    beforePreview,
-    compareBefore,
-    beforePlaceholder
+    "beforePreview",
+    "compareBefore",
+    "beforePlaceholder"
   );
-
 });
 
-
-todayInput.addEventListener("change",function(){
-
+todayInput.addEventListener("change",()=>{
   loadPhoto(
     todayInput,
-    todayPreview,
-    compareToday,
-    todayPlaceholder
+    "todayPreview",
+    "compareToday",
+    "todayPlaceholder"
   );
-
 });
 
-
-const range =
-document.getElementById("compareRange");
-
-const afterLayer =
-document.getElementById("afterLayer");
-
-const divider =
-document.getElementById("divider");
-
-const handle =
-document.getElementById("handle");
-
+const range=document.getElementById("compareRange");
+const layer=document.getElementById("afterLayer");
+const divider=document.getElementById("divider");
+const handle=document.getElementById("handle");
+const compareWrap=document.getElementById("compareWrap");
 
 function moveSlider(value){
-
-  afterLayer.style.width=value+"%";
-
+  layer.style.width=value+"%";
   divider.style.left=value+"%";
-
   handle.style.left=value+"%";
-
 }
 
-
-range.addEventListener("input",function(){
-
-  moveSlider(this.value);
-
+range.addEventListener("input",()=>{
+  moveSlider(range.value);
 });
 
-
-const compareWrap =
-document.getElementById("compareWrap");
-
-
-function sliderFromTouch(clientX){
-
-  const rect=
-  compareWrap.getBoundingClientRect();
-
-  let x=
-  clientX-rect.left;
-
-  let percent=
-  (x/rect.width)*100;
-
-  percent=
-  Math.max(0,Math.min(100,percent));
-
-  range.value=percent;
-
-  moveSlider(percent);
-
+function moveFromPoint(clientX){
+  const rect=compareWrap.getBoundingClientRect();
+  let p=((clientX-rect.left)/rect.width)*100;
+  p=Math.max(0,Math.min(100,p));
+  range.value=p;
+  moveSlider(p);
 }
 
+compareWrap.addEventListener("touchmove",e=>{
+  moveFromPoint(e.touches[0].clientX);
+},{passive:true});
 
-compareWrap.addEventListener(
-  "touchmove",
-  function(e){
-
-    sliderFromTouch(
-      e.touches[0].clientX
-    );
-
-  },
-  {passive:true}
-);
-
-
-compareWrap.addEventListener(
-  "click",
-  function(e){
-
-    sliderFromTouch(
-      e.clientX
-    );
-
-  }
-);
-
+compareWrap.addEventListener("click",e=>{
+  moveFromPoint(e.clientX);
+});
 
 const now=new Date();
 
@@ -806,111 +653,55 @@ now.getFullYear()+"年"+
 (now.getMonth()+1)+"月"+
 now.getDate()+"日";
 
-document.getElementById(
-  "todayDate"
-).textContent=formatted;
-
-
+document.getElementById("todayDate").textContent=formatted;
 
 const memoItems=[
-  "pores",
-  "dry",
-  "dull",
-  "red",
-  "spots",
-  "glow"
+"pores","dry","dull","red","spots","glow"
 ];
-
 
 function saveMemo(){
 
   const data={
-
     date:formatted,
-
-    memo:
-    document.getElementById(
-      "skinMemo"
-    ).value,
-
+    area:selectedArea,
+    memo:document.getElementById("skinMemo").value,
     checks:{}
-
   };
 
-
-  memoItems.forEach(function(id){
-
-    data.checks[id]=
-    document.getElementById(id).checked;
-
+  memoItems.forEach(id=>{
+    data.checks[id]=document.getElementById(id).checked;
   });
 
-
   try{
+    localStorage.setItem("watashiSkinMemo",JSON.stringify(data));
 
-    localStorage.setItem(
-      "watashiSkinMemo",
-      JSON.stringify(data)
-    );
-
-    document.getElementById(
-      "saveMessage"
-    ).textContent=
+    document.getElementById("saveMessage").textContent=
     "✓ 今日の肌メモを保存しました♡";
-
-  }
-
-  catch(e){
-
-    document.getElementById(
-      "saveMessage"
-    ).textContent=
+  }catch(e){
+    document.getElementById("saveMessage").textContent=
     "このブラウザでは保存できませんでした。";
-
   }
-
 }
-
 
 function restoreMemo(){
 
   try{
 
-    const saved=
-    localStorage.getItem(
-      "watashiSkinMemo"
-    );
-
+    const saved=localStorage.getItem("watashiSkinMemo");
     if(!saved)return;
 
-    const data=
-    JSON.parse(saved);
+    const data=JSON.parse(saved);
 
-    document.getElementById(
-      "skinMemo"
-    ).value=
-    data.memo || "";
+    document.getElementById("skinMemo").value=data.memo||"";
 
-
-    memoItems.forEach(function(id){
-
-      if(
-        data.checks &&
-        data.checks[id]
-      ){
-
+    memoItems.forEach(id=>{
+      if(data.checks && data.checks[id]){
         document.getElementById(id).checked=true;
-
       }
-
     });
 
-  }
-
-  catch(e){}
-
+  }catch(e){}
 }
-
 
 restoreMemo();
 
